@@ -36,12 +36,12 @@ background-color: #ffdddd;
 }
 
 /* Hide all steps by default: */
-.tab {
+.step {
 display: none;
 }
 
 /* Make circles that indicate the steps of the form: */
-.step {
+.dot {
 height: 15px;
 width: 15px;
 margin: 0 2px;
@@ -51,14 +51,12 @@ border-radius: 50%;
 display: inline-block;
 opacity: 0.5;
 }
-
 /* Mark the active step: */
-.step.active {
+.dot.active {
 opacity: 1;
 }
-
 /* Mark the steps that are finished and valid: */
-.step.finish {
+.dot.finish {
 background-color: #4CAF50;
 }
 

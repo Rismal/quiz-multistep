@@ -1,15 +1,15 @@
 <form id="quizLib" action="">
 
   <!-- Circles which indicates the steps of the form: -->
-  <div style="text-align:center;margin-top:10px; margin-bottom: 40px;">
-    <span class="step"></span>
-    <span class="step"></span>
-    <span class="step"></span>
+  <div class="step-indicator" style="text-align:center;margin-top:10px; margin-bottom: 40px;">
+    <span class="dot"></span>
+    <span class="dot"></span>
+    <span class="dot"></span>
   </div>
   
   <!-- One "tab" for each step in the form: -->
   
-  <div class="tab">
+  <div class="step">
       <p>DOMANDA 1</p>
     
       <p><span class ="domanda"> Cosa ne pensi delle unioni per coppie non eterosessuali? </span></p>
@@ -27,7 +27,7 @@
     
   </div>
 
-  <div class="tab">
+  <div class="step">
       <p>DOMANDA 2</p>
     
       <p><span class ="domanda"> In tempi di crisi, lo Stato... </span></p>
@@ -41,7 +41,7 @@
     
   </div>
 
-  <div class="tab">
+  <div class="step">
       <p>DOMANDA 3</p>
     
       <p><span class ="domanda"> La democrazia... </span></p>
@@ -58,15 +58,13 @@
   </div>
   
   <div style="overflow:auto; margin-top: 20px;">
+    <div id="error-msg" style="display: none; text-align: right;">
+        <P>SELEZIONA UNA RISPOSTA!</P>
+    </div>
     <div style="float:right;">
-      <div id="error-msg" style="display: none; text-align: right;">
-          <P>SELEZIONA UNA RISPOSTA!</P>
-      </div>
-      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Indietro</button>
-      <button type="button" id="nextBtn" onclick="nextPrev(1)">Avanti</button>
+      <button type="button" id="prevBtn" onclick="switchStep(-1)">Indietro</button>
+      <button type="button" id="nextBtn" onclick="switchStep(1)">Avanti</button>
     </div>
   </div>
-  
-
-  
+    
 </form>

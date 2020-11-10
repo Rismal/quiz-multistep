@@ -1,95 +1,106 @@
-var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
+let currentStepIdx = 0; // Current step is set to be the first step (0)
+const allStepsHTML = document.getElementsByClassName("step");
 
-function showTab(n) {
-    // This function will display the specified tab of the form ...
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
-    // ... and fix the Previous/Next buttons:
-    if (n == 0) {
+updateStep(currentStepIdx); // Display the current step
+
+function updateStep(currentStepIdx) {
+    
+    showStep(currentStepIdx);
+
+    updateButtons(currentStepIdx);
+
+    updateStepIndicator(currentStepIdx)
+}
+function showStep(currentStepIdx){
+    // This function will display the specified step of the form ...
+    allStepsHTML[currentStepIdx].style.display = "block";
+}
+function updateButtons(currentStepIdx){
+    if (currentStepIdx == 0) {
         document.getElementById("prevBtn").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
     }
-    if (n == (x.length - 1)) {
+
+    if (currentStepIdx == (allStepsHTML.length - 1)) {
         document.getElementById("nextBtn").innerHTML = "Vai ai risultati";
     } else {
         document.getElementById("nextBtn").innerHTML = "Avanti";
     }
-    // ... and run a function that displays the correct step indicator:
-    fixStepIndicator(n)
 }
-
-function nextPrev(n) {
-    // This function will figure out which tab to display
-    var x = document.getElementsByClassName("tab");
-    // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
-    // Hide the current tab:
-    x[currentTab].style.display = "none";
-    // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
-    // if you have reached the end of the form... :
-    if (currentTab >= x.length) {
-        //...the form gets submitted:
-        //document.getElementById("quizLib").submit();
-        redirectResultPage(calcQuizScore());
-        return false;
-    }
-    // Otherwise, display the correct tab:
-    showTab(currentTab);
-}
-
-function validateForm() {
-    // This function deals with validation of the form fields
-    var x, y, i, valid = true;
-    let isChecked = 0;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByTagName("input");
-
-    // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-        console.log(y[i]);
-        console.log(y[i].checked);
-        // If a field is empty...
-        if (y[i].checked == true) {
-            isChecked++;
-        }
-        console.log(isChecked);
-     
-    }
-    if (isChecked != 1) valid = setFieldInvalid(y[i]);
-
-    // If the valid status is true, mark the step as finished and valid:
-    if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
-        document.getElementById("error-msg").style.display = "none";
-    }
-    else document.getElementById("error-msg").style.display = "block";
-
-    return valid; // return the valid status
-}
-function setFieldInvalid(field) {
-      
-    // add an "invalid" class to the field:
-    //field.className += " invalid";
-    // and set the current valid status to false:
-    return false;
-}
-
-function fixStepIndicator(n) {
+function updateStepIndicator(currentStepIdx) {
     // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
+    const dots = document.getElementsByClassName("dot");
+
+    for ( const dot of dots ) {
+        let test = dot.className.replace(" active", "");
+        dot.className = test;
     }
     //... and adds the "active" class to the current step:
-    x[n].className += " active";
+    dots[currentStepIdx].className += " active";
 }
 
+function switchStep(switchDirection) {
+
+    // reset error msg
+    toggleErrorMsg(true);
+
+    // validate current step fields
+    const valid = validateStepFields(currentStepIdx);
+
+    // if tring to switch next and any field in the current step is invalid:
+    if (switchDirection == 1 && !valid){
+        toggleErrorMsg(false);
+        return false;
+    }
+    
+    // mark the curresponding step indicator as finished and valid:
+    const currentDot = document.getElementsByClassName("dot")[currentStepIdx];
+    if ( valid && !(currentDot.className.search(" finish") >= 0) ) {
+        currentDot.className += " finish";
+    }
+
+    // Hide the current step:
+    allStepsHTML[currentStepIdx].style.display = "none";
+
+    // Increase or decrease the current step by 1:
+    currentStepIdx = currentStepIdx + switchDirection;
+
+    // if you have reached the end of the form... :
+    if (currentStepIdx >= allStepsHTML.length) {
+        //...the form gets submitted:
+        //document.getElementById("quizLib").submit();
+        redirectToResultPage(calcQuizScore());
+        return false;
+    }
+    // Otherwise, display the correct step:
+    updateStep(currentStepIdx);
+}
+function validateStepFields(currentStepIdx) {
+
+    // get all input of current step
+    const inputFieldsHTML = document.getElementsByClassName("step")[currentStepIdx].getElementsByTagName("input");
+    let valid = true;
+    let isChecked = 0;
+
+    // loop every input field in the current step:
+    for ( const input of inputFieldsHTML ) {
+        if (input.checked == true) isChecked++;
+    }
+
+    // set validation condition
+    valid = isChecked == 1;
+
+    // return the valid status
+    return valid;
+}
+function toggleErrorMsg(valid){
+    if (valid) document.getElementById("error-msg").style.display = "none";
+    else document.getElementById("error-msg").style.display = "block";
+}
 
 function calcQuizScore(){
-    let inputFields = document.getElementById("quizLib").getElementsByTagName("input");
+    const inputFieldsHTML = document.getElementById("quizLib").getElementsByTagName("input");
     let quizScore = {
         "libClass"  : 0,
         "libCon"    : 0,
@@ -97,25 +108,19 @@ function calcQuizScore(){
         "con"       : 0,
         "libSoc"    : 0
     };
-    console.log(quizScore);
 
-    for (const currentInput of inputFields) {
-        console.log(currentInput);
+    // increment profile score based on each data attribs from all radios
+    for (const currentInput of inputFieldsHTML) {
         if (currentInput.checked) {
-            console.log("IN");
             for( const attribute in currentInput.dataset) {
-                console.log(attribute);
-                console.log(quizScore[attribute]);
                 quizScore[attribute]++
-                console.log(quizScore[attribute]);
             };
         }
     }
-    console.log(quizScore);
+
     return quizScore;
 }
-
-function redirectResultPage(quizScore){
+function redirectToResultPage(quizScore){
     let max = 0;
     let result;
     let queryString = "";
@@ -128,16 +133,19 @@ function redirectResultPage(quizScore){
         "libSoc"    : "liberale-sociale"
     };
 
+    // loop score obj
     for (const key in quizScore) {
+        // find out max score and corresponding key
         if ( quizScore[key] > max ) {
             max = quizScore[key];
             result = key;      
         }
+        // compose queryString from profiles and scores
         queryString = queryString+key+"="+quizScore[key]+"&";
     }
 
+    // finalize redirection relative URL adding result page to queryString
     queryString = "/"+profilePageUrl[result]+"?"+queryString;
-    console.log(queryString);
 
     window.location = queryString;
 }
