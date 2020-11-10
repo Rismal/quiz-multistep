@@ -11,6 +11,33 @@ function updateStep(currentStepIdx) {
 
     updateStepIndicator(currentStepIdx)
 }
+function showStep(currentStepIdx){
+    // This function will display the specified step of the form ...
+    allStepsHTML[currentStepIdx].style.display = "block";
+}
+function updateButtons(currentStepIdx){
+    if (currentStepIdx == 0) {
+        document.getElementById("prevBtn").style.display = "none";
+    } else {
+        document.getElementById("prevBtn").style.display = "inline";
+    }
+
+    if (currentStepIdx == (allStepsHTML.length - 1)) {
+        document.getElementById("nextBtn").innerHTML = "Vai ai risultati";
+    } else {
+        document.getElementById("nextBtn").innerHTML = "Avanti";
+    }
+}
+function updateStepIndicator(currentStepIdx) {
+    // This function removes the "active" class of all steps...
+    for ( const step of allStepsHTML ) {
+        let test = step.className.replace(" active", "");
+        console.log(test);
+        step.className = test;
+    }
+    //... and adds the "active" class to the current step:
+    allStepsHTML[currentStepIdx].className += " active";
+}
 
 function switchStep(switchDirection) {
     // This function will figure out which step to display
@@ -41,11 +68,6 @@ function switchStep(switchDirection) {
     // Otherwise, display the correct step:
     updateStep(currentStepIdx);
 }
-
-function showStep(currentStepIdx){
-    // This function will display the specified step of the form ...
-    allStepsHTML[currentStepIdx].style.display = "block";
-}
 function validateStep(currentStepIdx) {
 
     // get all input of current step
@@ -69,36 +91,10 @@ function validateStep(currentStepIdx) {
     // return the valid status
     return valid;
 }
-function updateButtons(currentStepIdx){
-    if (currentStepIdx == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
-    }
-
-    if (currentStepIdx == (allStepsHTML.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
-    } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-    }
-}
-function updateStepIndicator(currentStepIdx) {
-    // This function removes the "active" class of all steps...
-    
-    for ( const step of allStepsHTML ) {
-        let test = step.className.replace(" active", "");
-        console.log(test);
-        step.className = test;
-    }
-    //... and adds the "active" class to the current step:
-    allStepsHTML[currentStepIdx].className += " active";
-}
 function toggleErrorMsg(valid){
     if (valid) document.getElementById("error-msg").style.display = "none";
     else document.getElementById("error-msg").style.display = "block";
 }
-
-
 
 function calcQuizScore(){
     const inputFieldsHTML = document.getElementById("quizLib").getElementsByTagName("input");
@@ -121,7 +117,6 @@ function calcQuizScore(){
 
     return quizScore;
 }
-
 function redirectToResultPage(quizScore){
     let max = 0;
     let result;
