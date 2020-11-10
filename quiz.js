@@ -42,16 +42,18 @@ function updateStepIndicator(currentStepIdx) {
 function switchStep(switchDirection) {
     // This function will figure out which step to display
 
+    // reset error msg
+    toggleErrorMsg(true);
+
     // validate current step fields
     const valid = validateStep(currentStepIdx);
 
-    // handle error msg
-    if (switchDirection > 0) toggleErrorMsg(valid);
-    else toggleErrorMsg(true);    
-
-    // Exit the function if any field in the current step is invalid:
-    if (switchDirection == 1 && !valid) return false;
-
+    // if tring to switch next and any field in the current step is invalid:
+    if (switchDirection == 1 && !valid){
+        toggleErrorMsg(false);
+        return false;
+    }
+  
     // Hide the current step:
     allStepsHTML[currentStepIdx].style.display = "none";
 
