@@ -1,0 +1,68 @@
+<form id="quizLib" action="">
+
+    <h1>Register:</h1>
+    
+    <!-- One "tab" for each step in the form: -->
+    
+    <div class="tab">
+        <h2>Domanda 2</h2>
+      
+        <p>Che Liberale sei?</p>
+      
+        <input type="radio" id="q1-1" name="q1" value="1" data-lib-class="1">
+        <label for="q1-1">Liberale Classico</label>
+        <input type="radio" id="q1-2" name="q1" value="2" data-lib-con="1">
+        <label for="q1-2">Liberale Conservatore</label>
+        <input type="radio" id="q1-3" name="q1" value="3" data-vol="1">
+        <label for="q1-3">Volontarista</label>
+        <input type="radio" id="q1-4" name="q1" value="4" data-con="1">
+        <label for="q1-4">Conservatore</label>
+        <input type="radio" id="q1-5" name="q1" value="5" data-lib-soc="1">
+        <label for="q1-5">Liberale Sociale</label>
+      
+    </div>
+
+    <div class="tab">
+        <h2>Domanda 1</h2>
+      
+        <p>Che Liberale sei?</p>
+      
+        <input type="radio" id="q2-1" name="q2" value="1" data-lib-class="1" data-lib-con="1">
+        <label for="q2-1">Liberale</label>
+        <input type="radio" id="q2-2" name="q2" value="2" data-vol="1">
+        <label for="q2-2">Volontarista</label>
+        <input type="radio" id="q2-4" name="q2" value="4" data-con="1">
+        <label for="q2-4">Conservatore</label>
+      
+    </div>
+
+    <div class="tab">
+        <h2>Domanda 3</h2>
+      
+        <p>Che Liberale sei?</p>
+      
+        <input type="radio" id="q3-1" name="q3" value="1" data-lib-class="1">
+        <label for="q3-1">Liberale Classico</label>
+        <input type="radio" id="q3-2" name="q3" value="2" data-lib-con="1">
+        <label for="q3-2">Liberale Conservatore</label>
+      
+    </div>
+    
+    <div style="overflow:auto;">
+      <div style="float:right;">
+        <div id="error-msg" style="display: none;">
+            ERROR!
+        </div>
+        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+      </div>
+    </div>
+    
+    <!-- Circles which indicates the steps of the form: -->
+    <div style="text-align:center;margin-top:40px;">
+      <span class="step"></span>
+      <span class="step"></span>
+      <span class="step"></span>
+    </div>
+    
+</form>
