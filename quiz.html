@@ -1,68 +1,72 @@
 <form id="quizLib" action="">
 
-    <h1>Register:</h1>
+  <!-- Circles which indicates the steps of the form: -->
+  <div style="text-align:center;margin-top:10px; margin-bottom: 40px;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+  </div>
+  
+  <!-- One "tab" for each step in the form: -->
+  
+  <div class="tab">
+      <p>DOMANDA 1</p>
     
-    <!-- One "tab" for each step in the form: -->
+      <p><span class ="domanda"> Cosa ne pensi delle unioni per coppie non eterosessuali? </span></p>
     
-    <div class="tab">
-        <h2>Domanda 2</h2>
-      
-        <p>Che Liberale sei?</p>
-      
-        <input type="radio" id="q1-1" name="q1" value="1" data-lib-class="1">
-        <label for="q1-1">Liberale Classico</label>
-        <input type="radio" id="q1-2" name="q1" value="2" data-lib-con="1">
-        <label for="q1-2">Liberale Conservatore</label>
-        <input type="radio" id="q1-3" name="q1" value="3" data-vol="1">
-        <label for="q1-3">Volontarista</label>
-        <input type="radio" id="q1-4" name="q1" value="4" data-con="1">
-        <label for="q1-4">Conservatore</label>
-        <input type="radio" id="q1-5" name="q1" value="5" data-lib-soc="1">
-        <label for="q1-5">Liberale Sociale</label>
-      
-    </div>
+      <input type="radio" id="q1-1" name="q1" value="1" data-lib-class="1">
+      <label for="q1-1">Sono d'accordo: quello che avviene nel letto degli altri non mi interessa.</label><br/>
+      <input type="radio" id="q1-2" name="q1" value="2" data-lib-con="1">
+      <label for="q1-2">Sono a favore, ma moralmente credo non abbiano lo stesso valore delle coppie eterosessuali.</label><br/>
+      <input type="radio" id="q1-3" name="q1" value="3" data-vol="1">
+      <label for="q1-3">Le unioni civili e il matrimonio vanno aboliti: solo contratti privati!</label><br/>
+      <input type="radio" id="q1-4" name="q1" value="4" data-con="1">
+      <label for="q1-4">Sono più contrario che d'accordo.</label><br/>
+      <input type="radio" id="q1-5" name="q1" value="5" data-lib-soc="1">
+      <label for="q1-5">Lo Stato deve favorirne l'accettazione da parte della popolazione.</label>
+    
+  </div>
 
-    <div class="tab">
-        <h2>Domanda 1</h2>
-      
-        <p>Che Liberale sei?</p>
-      
-        <input type="radio" id="q2-1" name="q2" value="1" data-lib-class="1" data-lib-con="1">
-        <label for="q2-1">Liberale</label>
-        <input type="radio" id="q2-2" name="q2" value="2" data-vol="1">
-        <label for="q2-2">Volontarista</label>
-        <input type="radio" id="q2-4" name="q2" value="4" data-con="1">
-        <label for="q2-4">Conservatore</label>
-      
-    </div>
-
-    <div class="tab">
-        <h2>Domanda 3</h2>
-      
-        <p>Che Liberale sei?</p>
-      
-        <input type="radio" id="q3-1" name="q3" value="1" data-lib-class="1">
-        <label for="q3-1">Liberale Classico</label>
-        <input type="radio" id="q3-2" name="q3" value="2" data-lib-con="1">
-        <label for="q3-2">Liberale Conservatore</label>
-      
-    </div>
+  <div class="tab">
+      <p>DOMANDA 2</p>
     
-    <div style="overflow:auto;">
-      <div style="float:right;">
-        <div id="error-msg" style="display: none;">
-            <h2>ERROR!</h2>
-        </div>
-        <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-        <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+      <p><span class ="domanda"> In tempi di crisi, lo Stato... </span></p>
+    
+      <input type="radio" id="q2-1" name="q2" value="1" data-lib-class="1" data-lib-con="1" data-vol="1">
+      <label for="q2-1">Dovrebbe favorire la crescita liberalizzando i mercati, privatizzando e abbassando le imposte.</label><br/>
+      <input type="radio" id="q2-2" name="q2" value="2" data-vol="1">
+      <label for="q2-2">Dovrebbe completamente mettersi da parte e lasciare il campo solo ai privati.</label><br/>
+      <input type="radio" id="q2-4" name="q2" value="4" data-con="1" data-lib-soc="1">
+      <label for="q2-4">Dovrebbe favorire la crescita stimolando il mercato con investimenti ad hoc.</label>
+    
+  </div>
+
+  <div class="tab">
+      <p>DOMANDA 3</p>
+    
+      <p><span class ="domanda"> La democrazia... </span></p>
+    
+      <input type="radio" id="q3-1" name="q3" value="1" data-lib-class="1" data-lib-con="1">
+      <label for="q3-1">Quando liberale, è il migliore dei sistemi. Quando illimitata, diventa una vera e propria dittatura della maggioranza.</label><br/>
+      <input type="radio" id="q3-2" name="q3" value="2" data-vol="1">
+      <label for="q3-2">È un sistema illegittimo che permette l'ingrandimento del potere statale e l'esproprio della ricchezza.</label><br/>
+      <input type="radio" id="q3-4" name="q3" value="4" data-lib-soc="1">
+      <label for="q2-4">È il miglior sistema politico: garantisce potere ed eguaglianza ai cittadini.</label><br/>
+      <input type="radio" id="q3-3" name="q3" value="3" data-con="1">
+      <label for="q3-2">È un buon sistema finché riesce a mantenere lo status quo.</label><br/>
+    
+  </div>
+  
+  <div style="overflow:auto; margin-top: 20px;">
+    <div style="float:right;">
+      <div id="error-msg" style="display: none; text-align: right;">
+          <P>SELEZIONA UNA RISPOSTA!</P>
       </div>
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Indietro</button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)">Avanti</button>
     </div>
-    
-    <!-- Circles which indicates the steps of the form: -->
-    <div style="text-align:center;margin-top:40px;">
-      <span class="step"></span>
-      <span class="step"></span>
-      <span class="step"></span>
-    </div>
-    
+  </div>
+  
+
+  
 </form>
