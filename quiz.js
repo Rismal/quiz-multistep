@@ -1,31 +1,34 @@
-var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
+let currentStepIdx = 0; // Current tab is set to be the first tab (0)
+const allStepsHTML = document.getElementsByClassName("tab");
 
-function showTab(n) {
+showTab(currentStepIdx); // Display the current tab
+
+function showTab(currentStepIdx) {
+    
     // This function will display the specified tab of the form ...
-    var x = document.getElementsByClassName("tab");
-    x[n].style.display = "block";
+    allStepsHTML[currentStepIdx].style.display = "block";
+
     // ... and fix the Previous/Next buttons:
-    if (n == 0) {
+    if (currentStepIdx == 0) {
         document.getElementById("prevBtn").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
     }
-    if (n == (x.length - 1)) {
+    if (currentStepIdx == (allStepsHTML.length - 1)) {
         document.getElementById("nextBtn").innerHTML = "Submit";
     } else {
         document.getElementById("nextBtn").innerHTML = "Next";
     }
+    
     // ... and run a function that displays the correct step indicator:
-    fixStepIndicator(n)
+    updateStepIndicator(currentStepIdx)
 }
 
 function nextPrev(n) {
     // This function will figure out which tab to display
-    var x = document.getElementsByClassName("tab");
 
     // validate current step fields
-    const valid = validateStep();
+    const valid = validateStep(currentStepIdx);
 
     // handle error msg
     if (n > 0) toggleErrorMsg(valid);
@@ -35,46 +38,44 @@ function nextPrev(n) {
     if (n == 1 && !valid) return false;
 
     // Hide the current tab:
-    x[currentTab].style.display = "none";
+    allStepsHTML[currentStepIdx].style.display = "none";
+
     // Increase or decrease the current tab by 1:
-    currentTab = currentTab + n;
+    currentStepIdx = currentStepIdx + n;
+
     // if you have reached the end of the form... :
-    if (currentTab >= x.length) {
+    if (currentStepIdx >= allStepsHTML.length) {
         //...the form gets submitted:
         //document.getElementById("quizLib").submit();
-        redirectResultPage(calcQuizScore());
+        redirectToResultPage(calcQuizScore());
         return false;
     }
     // Otherwise, display the correct tab:
-    showTab(currentTab);
+    showTab(currentStepIdx);
 }
 
-function validateForm() {
-    // This function deals with validation of the form fields
-    var x, y, i, valid = true;
-    let isChecked = 0;
-    x = document.getElementsByClassName("tab");
-    y = x[currentTab].getElementsByTagName("input");
+function validateStep(currentStepIdx) {
 
-    // A loop that checks every input field in the current tab:
-    for (i = 0; i < y.length; i++) {
-        console.log(y[i]);
-        console.log(y[i].checked);
-        // If a field is empty...
-        if (y[i].checked == true) {
-            isChecked++;
-        }
-        console.log(isChecked);
+    // get all input of current step
+    const inputFieldsHTML = document.getElementsBradiosClassName("tab")[currentStepIdx].getElementsBradiosTagName("input");
+    let valid = true;
+    let isChecked = 0;
+
+    // loops every input field in the current step:
+    for ( const input of inputFieldsHTML ) {
+        if (input.checked == true) isChecked++;
     }
 
-    if (isChecked != 1) valid = setFieldInvalid(y[i]);
+    // set validation condition
+    valid = isChecked == 1;
 
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
-        document.getElementsByClassName("step")[currentTab].className += " finish";
+        document.getElementsByClassName("step")[currentStepIdx].className += " finish";
     }
 
-    return valid; // return the valid status
+    // return the valid status
+    return valid;
 }
 
 function toggleErrorMsg(valid){
@@ -82,7 +83,7 @@ function toggleErrorMsg(valid){
     else document.getElementById("error-msg").style.display = "block";
 }
 
-function fixStepIndicator(n) {
+function updateStepIndicator(n) {
     // This function removes the "active" class of all steps...
     var i, x = document.getElementsByClassName("step");
     for (i = 0; i < x.length; i++) {
@@ -94,7 +95,7 @@ function fixStepIndicator(n) {
 
 
 function calcQuizScore(){
-    let inputFields = document.getElementById("quizLib").getElementsByTagName("input");
+    const inputFieldsHTML = document.getElementById("quizLib").getElementsByTagName("input");
     let quizScore = {
         "libClass"  : 0,
         "libCon"    : 0,
@@ -102,25 +103,20 @@ function calcQuizScore(){
         "con"       : 0,
         "libSoc"    : 0
     };
-    console.log(quizScore);
 
-    for (const currentInput of inputFields) {
-        console.log(currentInput);
+    // increment profile score based on each data attribs from all radios
+    for (const currentInput of inputFieldsHTML) {
         if (currentInput.checked) {
-            console.log("IN");
             for( const attribute in currentInput.dataset) {
-                console.log(attribute);
-                console.log(quizScore[attribute]);
                 quizScore[attribute]++
-                console.log(quizScore[attribute]);
             };
         }
     }
-    console.log(quizScore);
+
     return quizScore;
 }
 
-function redirectResultPage(quizScore){
+function redirectToResultPage(quizScore){
     let max = 0;
     let result;
     let queryString = "";
@@ -133,16 +129,19 @@ function redirectResultPage(quizScore){
         "libSoc"    : "liberale-sociale"
     };
 
+    // loops score obj
     for (const key in quizScore) {
+        // find out max score and corresponding key
         if ( quizScore[key] > max ) {
             max = quizScore[key];
             result = key;      
         }
+        // compose queryString from profiles and scores
         queryString = queryString+key+"="+quizScore[key]+"&";
     }
 
+    // finalize redirection relative URL adding result page to queryString
     queryString = "/"+profilePageUrl[result]+"?"+queryString;
-    console.log(queryString);
 
     window.location = queryString;
 }
