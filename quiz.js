@@ -23,8 +23,17 @@ function showTab(n) {
 function nextPrev(n) {
     // This function will figure out which tab to display
     var x = document.getElementsByClassName("tab");
+
+    // validate current step fields
+    const valid = validateStep();
+
+    // handle error msg
+    if (n > 0) toggleErrorMsg(valid);
+    else toggleErrorMsg(true);    
+
     // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !validateForm()) return false;
+    if (n == 1 && !valid) return false;
+
     // Hide the current tab:
     x[currentTab].style.display = "none";
     // Increase or decrease the current tab by 1:
@@ -56,16 +65,14 @@ function validateForm() {
             isChecked++;
         }
         console.log(isChecked);
-     
     }
+
     if (isChecked != 1) valid = setFieldInvalid(y[i]);
 
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
         document.getElementsByClassName("step")[currentTab].className += " finish";
-        document.getElementById("error-msg").style.display = "none";
     }
-    else document.getElementById("error-msg").style.display = "block";
 
     return valid; // return the valid status
 }
@@ -75,6 +82,11 @@ function setFieldInvalid(field) {
     //field.className += " invalid";
     // and set the current valid status to false:
     return false;
+}
+
+function toggleErrorMsg(valid){
+    if (valid) document.getElementById("error-msg").style.display = "none";
+    else document.getElementById("error-msg").style.display = "block";
 }
 
 function fixStepIndicator(n) {
