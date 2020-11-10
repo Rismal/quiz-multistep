@@ -1,47 +1,35 @@
-let currentStepIdx = 0; // Current tab is set to be the first tab (0)
-const allStepsHTML = document.getElementsByClassName("tab");
+let currentStepIdx = 0; // Current step is set to be the first step (0)
+const allStepsHTML = document.getElementsByClassName("step");
 
-showTab(currentStepIdx); // Display the current tab
+updateStep(currentStepIdx); // Display the current step
 
-function showTab(currentStepIdx) {
+function updateStep(currentStepIdx) {
     
-    // This function will display the specified tab of the form ...
-    allStepsHTML[currentStepIdx].style.display = "block";
+    showStep(currentStepIdx);
 
-    // ... and fix the Previous/Next buttons:
-    if (currentStepIdx == 0) {
-        document.getElementById("prevBtn").style.display = "none";
-    } else {
-        document.getElementById("prevBtn").style.display = "inline";
-    }
-    if (currentStepIdx == (allStepsHTML.length - 1)) {
-        document.getElementById("nextBtn").innerHTML = "Submit";
-    } else {
-        document.getElementById("nextBtn").innerHTML = "Next";
-    }
-    
-    // ... and run a function that displays the correct step indicator:
+    updateButtons(currentStepIdx);
+
     updateStepIndicator(currentStepIdx)
 }
 
-function nextPrev(n) {
-    // This function will figure out which tab to display
+function switchStep(switchDirection) {
+    // This function will figure out which step to display
 
     // validate current step fields
     const valid = validateStep(currentStepIdx);
 
     // handle error msg
-    if (n > 0) toggleErrorMsg(valid);
+    if (switchDirection > 0) toggleErrorMsg(valid);
     else toggleErrorMsg(true);    
 
-    // Exit the function if any field in the current tab is invalid:
-    if (n == 1 && !valid) return false;
+    // Exit the function if any field in the current step is invalid:
+    if (switchDirection == 1 && !valid) return false;
 
-    // Hide the current tab:
+    // Hide the current step:
     allStepsHTML[currentStepIdx].style.display = "none";
 
-    // Increase or decrease the current tab by 1:
-    currentStepIdx = currentStepIdx + n;
+    // Increase or decrease the current step by 1:
+    currentStepIdx = currentStepIdx + switchDirection;
 
     // if you have reached the end of the form... :
     if (currentStepIdx >= allStepsHTML.length) {
@@ -50,14 +38,18 @@ function nextPrev(n) {
         redirectToResultPage(calcQuizScore());
         return false;
     }
-    // Otherwise, display the correct tab:
-    showTab(currentStepIdx);
+    // Otherwise, display the correct step:
+    updateStep(currentStepIdx);
 }
 
+function showStep(currentStepIdx){
+    // This function will display the specified step of the form ...
+    allStepsHTML[currentStepIdx].style.display = "block";
+}
 function validateStep(currentStepIdx) {
 
     // get all input of current step
-    const inputFieldsHTML = document.getElementsBradiosClassName("tab")[currentStepIdx].getElementsBradiosTagName("input");
+    const inputFieldsHTML = document.getElementsByClassName("step")[currentStepIdx].getElementsByTagName("input");
     let valid = true;
     let isChecked = 0;
 
@@ -77,21 +69,35 @@ function validateStep(currentStepIdx) {
     // return the valid status
     return valid;
 }
+function updateButtons(currentStepIdx){
+    if (currentStepIdx == 0) {
+        document.getElementById("prevBtn").style.display = "none";
+    } else {
+        document.getElementById("prevBtn").style.display = "inline";
+    }
 
+    if (currentStepIdx == (allStepsHTML.length - 1)) {
+        document.getElementById("nextBtn").innerHTML = "Submit";
+    } else {
+        document.getElementById("nextBtn").innerHTML = "Next";
+    }
+}
+function updateStepIndicator(currentStepIdx) {
+    // This function removes the "active" class of all steps...
+    
+    for ( const step of allStepsHTML ) {
+        let test = step.className.replace(" active", "");
+        console.log(test);
+        step.className = test;
+    }
+    //... and adds the "active" class to the current step:
+    allStepsHTML[currentStepIdx].className += " active";
+}
 function toggleErrorMsg(valid){
     if (valid) document.getElementById("error-msg").style.display = "none";
     else document.getElementById("error-msg").style.display = "block";
 }
 
-function updateStepIndicator(n) {
-    // This function removes the "active" class of all steps...
-    var i, x = document.getElementsByClassName("step");
-    for (i = 0; i < x.length; i++) {
-        x[i].className = x[i].className.replace(" active", "");
-    }
-    //... and adds the "active" class to the current step:
-    x[n].className += " active";
-}
 
 
 function calcQuizScore(){
