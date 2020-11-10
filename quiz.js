@@ -49,25 +49,30 @@ function validateForm() {
 
     // A loop that checks every input field in the current tab:
     for (i = 0; i < y.length; i++) {
+        console.log(y[i]);
+        console.log(y[i].checked);
         // If a field is empty...
         if (y[i].checked == true) {
             isChecked++;
         }
-        if (isChecked != 1) valid = setFieldInvalid(y[i]);
-        else document.getElementById("error-msg").style.display = "none";
+        console.log(isChecked);
+     
     }
+    if (isChecked != 1) valid = setFieldInvalid(y[i]);
+
     // If the valid status is true, mark the step as finished and valid:
     if (valid) {
         document.getElementsByClassName("step")[currentTab].className += " finish";
+        document.getElementById("error-msg").style.display = "none";
     }
+    else document.getElementById("error-msg").style.display = "block";
+
     return valid; // return the valid status
 }
 function setFieldInvalid(field) {
-    
-    document.getElementById("error-msg").style.display = "block";
-    
+      
     // add an "invalid" class to the field:
-    field.className += " invalid";
+    //field.className += " invalid";
     // and set the current valid status to false:
     return false;
 }
@@ -126,13 +131,13 @@ function redirectResultPage(quizScore){
     for (const key in quizScore) {
         if ( quizScore[key] > max ) {
             max = quizScore[key];
-            result = key;
-                      
+            result = key;      
         }
         queryString = queryString+key+"="+quizScore[key]+"&";
     }
 
     queryString = "/"+profilePageUrl[result]+"?"+queryString;
     console.log(queryString);
+
     window.location = queryString;
 }
