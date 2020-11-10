@@ -30,30 +30,36 @@ function updateButtons(currentStepIdx){
 }
 function updateStepIndicator(currentStepIdx) {
     // This function removes the "active" class of all steps...
-    for ( const step of allStepsHTML ) {
-        let test = step.className.replace(" active", "");
-        console.log(test);
-        step.className = test;
+    const dots = document.getElementsByClassName("dot");
+
+    for ( const dot of dots ) {
+        let test = dot.className.replace(" active", "");
+        dot.className = test;
     }
     //... and adds the "active" class to the current step:
-    allStepsHTML[currentStepIdx].className += " active";
+    dots[currentStepIdx].className += " active";
 }
 
 function switchStep(switchDirection) {
-    // This function will figure out which step to display
 
     // reset error msg
     toggleErrorMsg(true);
 
     // validate current step fields
-    const valid = validateStep(currentStepIdx);
+    const valid = validateStepFields(currentStepIdx);
 
     // if tring to switch next and any field in the current step is invalid:
     if (switchDirection == 1 && !valid){
         toggleErrorMsg(false);
         return false;
     }
-  
+    
+    // mark the curresponding step indicator as finished and valid:
+    const currentDot = document.getElementsByClassName("dot")[currentStepIdx];
+    if ( valid && !(currentDot.className.search(" finish") >= 0) ) {
+        currentDot.className += " finish";
+    }
+
     // Hide the current step:
     allStepsHTML[currentStepIdx].style.display = "none";
 
@@ -70,25 +76,20 @@ function switchStep(switchDirection) {
     // Otherwise, display the correct step:
     updateStep(currentStepIdx);
 }
-function validateStep(currentStepIdx) {
+function validateStepFields(currentStepIdx) {
 
     // get all input of current step
     const inputFieldsHTML = document.getElementsByClassName("step")[currentStepIdx].getElementsByTagName("input");
     let valid = true;
     let isChecked = 0;
 
-    // loops every input field in the current step:
+    // loop every input field in the current step:
     for ( const input of inputFieldsHTML ) {
         if (input.checked == true) isChecked++;
     }
 
     // set validation condition
     valid = isChecked == 1;
-
-    // If the valid status is true, mark the step as finished and valid:
-    if (valid) {
-        document.getElementsByClassName("step")[currentStepIdx].className += " finish";
-    }
 
     // return the valid status
     return valid;
@@ -132,7 +133,7 @@ function redirectToResultPage(quizScore){
         "libSoc"    : "liberale-sociale"
     };
 
-    // loops score obj
+    // loop score obj
     for (const key in quizScore) {
         // find out max score and corresponding key
         if ( quizScore[key] > max ) {
