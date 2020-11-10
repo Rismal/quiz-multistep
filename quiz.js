@@ -76,13 +76,6 @@ function validateForm() {
 
     return valid; // return the valid status
 }
-function setFieldInvalid(field) {
-      
-    // add an "invalid" class to the field:
-    //field.className += " invalid";
-    // and set the current valid status to false:
-    return false;
-}
 
 function toggleErrorMsg(valid){
     if (valid) document.getElementById("error-msg").style.display = "none";
