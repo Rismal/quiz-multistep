@@ -123,6 +123,13 @@ function toggleErrorMsg(show){
 function toggleWaitMsg(show){
     toggleMsg("wait-msg", show);
 }
+function updateErrorMsg(isLastStep){
+    const errorMsg = document.querySelector("#error-msg > p");
+
+    if (isLastStep) errorMsg.innerHTML = "COMPLETA TUTTE LE DOMANDE!";
+    else errorMsg.innerHTML = "SELEZIONA UNA RISPOSTA!";
+    
+}
 
 function calcQuizScore(){
     const inputFieldsHTML = document.getElementById("quizLib").getElementsByTagName("input");
