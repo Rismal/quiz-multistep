@@ -12,9 +12,12 @@ function updateStep(currentStepIdx) {
 
     updateStepIndicator(currentStepIdx)
 }
-function showStep(currentStepIdx){
+function showStep(stepIdx){
     // This function will display the specified step of the form ...
-    allStepsHTML[currentStepIdx].style.display = "block";
+    allStepsHTML[stepIdx].style.display = "block";
+}
+function hideStep(stepIdx) {
+    allStepsHTML[stepIdx].style.display = "none";
 }
 function updateButtons(currentStepIdx){
     if (currentStepIdx == 0) {
@@ -91,7 +94,7 @@ function switchStep(switchDirection) {
 
 
     // Hide the current step:
-    allStepsHTML[currentStepIdx].style.display = "none";
+    hideStep(currentStepIdx);
 
     // Increase or decrease the current step by 1:
     currentStepIdx = currentStepIdx + switchDirection;
