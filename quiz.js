@@ -43,22 +43,34 @@ function updateStepIndicator(currentStepIdx) {
 function switchStep(switchDirection) {
 
     // reset error msg
-    toggleErrorMsg(true);
+    toggleErrorMsg(false);
 
     // validate current step fields
     const valid = validateStepFields(currentStepIdx);
 
     // if tring to switch next and any field in the current step is invalid:
     if (switchDirection == 1 && !valid){
-        toggleErrorMsg(false);
+        toggleErrorMsg(true);
         return false;
     }
-    
+
+    // if you have reached the end of the form... :
+    if (currentStepIdx = allStepsHTML.length-1) {
+        //...the form gets submitted:
+        toggleWaitMsg(true);
+        redirectToResultPage(calcQuizScore());
+        //document.getElementById("quizLib").submit();
+        return true;
+    }
+    // reset wait msg
+    toggleWaitMsg(false);
+
     // mark the curresponding step indicator as finished and valid:
     const currentDot = document.getElementsByClassName("dot")[currentStepIdx];
     if ( valid && !(currentDot.className.search(" finish") >= 0) ) {
         currentDot.className += " finish";
     }
+
 
     // Hide the current step:
     allStepsHTML[currentStepIdx].style.display = "none";
@@ -66,13 +78,6 @@ function switchStep(switchDirection) {
     // Increase or decrease the current step by 1:
     currentStepIdx = currentStepIdx + switchDirection;
 
-    // if you have reached the end of the form... :
-    if (currentStepIdx >= allStepsHTML.length) {
-        //...the form gets submitted:
-        //document.getElementById("quizLib").submit();
-        redirectToResultPage(calcQuizScore());
-        return false;
-    }
     // Otherwise, display the correct step:
     updateStep(currentStepIdx);
 }
@@ -94,9 +99,15 @@ function validateStepFields(currentStepIdx) {
     // return the valid status
     return valid;
 }
-function toggleErrorMsg(valid){
-    if (valid) document.getElementById("error-msg").style.display = "none";
-    else document.getElementById("error-msg").style.display = "block";
+function toggleMsg(msgId, show){
+    if (show) document.getElementById(msgId).style.display = "block";
+    else document.getElementById(msgId).style.display = "none";
+}
+function toggleErrorMsg(show){
+    toggleMsg("error-msg", show);
+}
+function toggleWaitMsg(show){
+    toggleMsg("wait-msg", show);
 }
 
 function calcQuizScore(){
