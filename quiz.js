@@ -1,4 +1,5 @@
 let currentStepIdx = 0; // Current step is set to be the first step (0)
+const formId = "quizLib";
 const allStepsHTML = document.getElementsByClassName("step");
 
 updateStep(currentStepIdx); // Display the current step
@@ -76,7 +77,7 @@ function switchStep(switchDirection) {
         //...the form gets submitted:
         toggleWaitMsg(true);
         redirectToResultPage(calcQuizScore());
-        //document.getElementById("quizLib").submit();
+        //document.getElementById("formId").submit();
         return true;
     }
     // reset wait msg
@@ -147,7 +148,7 @@ function updateErrorMsg(isLastStep){
 }
 
 function calcQuizScore(){
-    const inputFieldsHTML = document.getElementById("quizLib").getElementsByTagName("input");
+    const inputFieldsHTML = document.getElementById(formId).getElementsByTagName("input");
     let quizScore = {
         "libClass"  : 0,
         "libCon"    : 0,
