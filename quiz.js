@@ -33,15 +33,23 @@ function updateButtons(currentStepIdx){
     }
 }
 function updateStepIndicator(currentStepIdx) {
-    // This function removes the "active" class of all steps...
     const dots = document.getElementsByClassName("dot");
-
+    
+    // remove the "active" class of all steps...
     for ( const dot of dots ) {
         let test = dot.className.replace(" active", "");
         dot.className = test;
     }
-    //... and adds the "active" class to the current step:
+    //... and add the "active" class to the current step:
     dots[currentStepIdx].className += " active";
+}
+function validateDot(currentStepIdx) {
+    const currentDot = document.getElementsByClassName("dot")[currentStepIdx];
+
+    // mark the step indicator as valid:
+    if ( !(currentDot.className.search(" finish") >= 0) ) {
+        currentDot.className += " finish";
+    }
 }
 
 function switchStep(switchDirection) {
@@ -86,11 +94,7 @@ function switchStep(switchDirection) {
     // reset wait msg
     toggleWaitMsg(false);
 
-    // mark the curresponding step indicator as finished and valid:
-    const currentDot = document.getElementsByClassName("dot")[currentStepIdx];
-    if ( valid && !(currentDot.className.search(" finish") >= 0) ) {
-        currentDot.className += " finish";
-    }
+    if ( valid ) validateDot(currentStepIdx);
 
 
     // Hide the current step:
