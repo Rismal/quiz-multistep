@@ -42,11 +42,28 @@ function updateStepIndicator(currentStepIdx) {
 
 function switchStep(switchDirection) {
 
+    const isLastStep = currentStepIdx == allStepsHTML.length-1;
+    let fields;
+    let valid;
+
     // reset error msg
     toggleErrorMsg(false);
+    updateErrorMsg(isLastStep);
 
-    // validate current step fields
-    const valid = validateStepFields(currentStepIdx);
+    // get fields to validate
+    if (isLastStep) {
+        // if you have reached the end of the form... :
+        // all steps fields
+        fields = document.querySelectorAll(".step input");
+    }
+    else {
+        // only current step fields
+        fields = document.querySelectorAll(".step")[currentStepIdx].querySelectorAll("input");
+    }
+
+    // validate fields
+    valid = validateFields(fields);
+
 
     // if tring to switch next and any field in the current step is invalid:
     if (switchDirection == 1 && !valid){
@@ -55,7 +72,7 @@ function switchStep(switchDirection) {
     }
 
     // if you have reached the end of the form... :
-    if (currentStepIdx = allStepsHTML.length-1) {
+    if (isLastStep) {
         //...the form gets submitted:
         toggleWaitMsg(true);
         redirectToResultPage(calcQuizScore());
@@ -95,10 +112,8 @@ function jumpStep(dot){
     updateStep(currentStepIdx);
 }
 
-function validateStepFields(currentStepIdx) {
+function validateFields(inputFieldsHTML) {
 
-    // get all input of current step
-    const inputFieldsHTML = document.getElementsByClassName("step")[currentStepIdx].getElementsByTagName("input");
     let valid = true;
     let isChecked = 0;
 
