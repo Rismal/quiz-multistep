@@ -81,6 +81,20 @@ function switchStep(switchDirection) {
     // Otherwise, display the correct step:
     updateStep(currentStepIdx);
 }
+function jumpStep(dot){
+    // reset error msg
+    toggleErrorMsg(false);
+    
+    // Hide the current step:
+    allStepsHTML[currentStepIdx].style.display = "none";
+
+    // update the current step:
+    currentStepIdx = Array.prototype.indexOf.call(dot.parentNode.children, dot);
+
+    // display the selected step:
+    updateStep(currentStepIdx);
+}
+
 function validateStepFields(currentStepIdx) {
 
     // get all input of current step
