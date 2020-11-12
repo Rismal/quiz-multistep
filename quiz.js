@@ -109,6 +109,7 @@ function switchStep(switchDirection) {
 function jumpStep(dot){
     // reset error msg
     toggleErrorMsg(false);
+function jumpToStep(dot){
     
     // Hide the current step:
     allStepsHTML[currentStepIdx].style.display = "none";
