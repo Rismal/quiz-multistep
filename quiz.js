@@ -119,19 +119,20 @@ function switchStep(switchDirection) {
     // Otherwise, display the correct step:
     updateNewStep(currentStep);
 }
-function jumpStep(dot){
-    // reset error msg
-    toggleErrorMsg(false);
 function jumpToStep(dot){
+
+    // jump only to validated dot
+    if ( !isDotCompleted(dot) && !isDotNext(dot) ) return false;
     
+    // updateCurrentStep
     // Hide the current step:
-    allStepsHTML[currentStepIdx].style.display = "none";
+    hideStep(currentStep.index);
 
     // update the current step:
-    currentStepIdx = Array.prototype.indexOf.call(dot.parentNode.children, dot);
+    currentStep.index = Array.prototype.indexOf.call(dot.parentNode.children, dot);
 
     // display the selected step:
-    updateStep(currentStepIdx);
+    updateNewStep(currentStep);
 }
 
 function validateRadio(questionIdx){
