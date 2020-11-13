@@ -1,5 +1,5 @@
 let currentStepIdx = 0; // Current step is set to be the first step (0)
-const formId = "quizLib";
+const formHTML = document.getElementById("quizLib");
 const allStepsHTML = document.getElementsByClassName("step");
 
 updateStep(currentStepIdx); // Display the current step
