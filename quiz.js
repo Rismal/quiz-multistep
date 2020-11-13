@@ -15,15 +15,20 @@ const currentStep = {
     }
 }
 
-updateStep(currentStepIdx); // Display the current step
+initStep(); // Display the first step
+function initStep() {
+    updateButtons(currentStep);
+    showStep(currentStep.index);
+    markDotActive(currentStep.index);
+    markDotNext(currentStep.index);
+}
 
-function updateStep(currentStepIdx) {
-    
-    showStep(currentStepIdx);
-
-    updateButtons(currentStepIdx);
-
-    updateStepIndicator(currentStepIdx)
+function updateNewStep(currentStep) {
+    toggleErrorMsg(false);
+    updateButtons(currentStep);
+    showStep(currentStep.index);
+    markDotActive(currentStep.index);
+    updateErrorMsg(currentStep.isLastStep());
 }
 function showStep(stepIdx){
     // This function will display the specified step of the form ...
