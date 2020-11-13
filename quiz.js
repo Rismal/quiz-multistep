@@ -156,7 +156,7 @@ function updateErrorMsg(isLastStep){
 }
 
 function calcQuizScore(){
-    const inputFieldsHTML = document.getElementById(formId).getElementsByTagName("input");
+    const inputsHTML = formHTML.getElementsByTagName("input");
     let quizScore = {
         "libClass"  : 0,
         "libCon"    : 0,
@@ -166,7 +166,7 @@ function calcQuizScore(){
     };
 
     // increment profile score based on each data attribs from all radios
-    for (const currentInput of inputFieldsHTML) {
+    for (const currentInput of inputsHTML) {
         if (currentInput.checked) {
             for( const attribute in currentInput.dataset) {
                 quizScore[attribute]++
