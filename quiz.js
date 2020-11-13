@@ -22,7 +22,6 @@ function initStep() {
     markDotActive(currentStep.index);
     markDotNext(currentStep.index);
 }
-
 function updateNewStep(currentStep) {
     toggleErrorMsg(false);
     updateButtons(currentStep);
@@ -80,7 +79,6 @@ function jumpToStep(dot){
     // display the selected step:
     updateNewStep(currentStep);
 }
-
 
 function showStep(stepIdx){
     // This function will display the specified step of the form ...
