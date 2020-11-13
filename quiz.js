@@ -1,6 +1,19 @@
-let currentStepIdx = 0; // Current step is set to be the first step (0)
 const formHTML = document.getElementById("quizLib");
 const allStepsHTML = document.getElementsByClassName("step");
+const currentStep = {
+    startingIndex: 0,
+    index: 0,
+    direction: 0,
+    isFirstStep: function() {
+        return this.index == this.startingIndex;
+    },
+    isLastStep: function() {
+        return this.index == (allStepsHTML.length-1);
+    },
+    increment: function (direction) {
+        return this.index = this.index + direction;
+    }
+}
 
 updateStep(currentStepIdx); // Display the current step
 
