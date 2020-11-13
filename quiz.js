@@ -37,14 +37,15 @@ function showStep(stepIdx){
 function hideStep(stepIdx) {
     allStepsHTML[stepIdx].style.display = "none";
 }
-function updateButtons(currentStepIdx){
-    if (currentStepIdx == 0) {
+
+function updateButtons(currentStep){
+    if (currentStep.isFirstStep()) {
         document.getElementById("prevBtn").style.display = "none";
     } else {
         document.getElementById("prevBtn").style.display = "inline";
     }
 
-    if (currentStepIdx == (allStepsHTML.length - 1)) {
+    if (currentStep.isLastStep()) {
         document.getElementById("nextBtn").innerHTML = "Vai ai risultati";
     } else {
         document.getElementById("nextBtn").innerHTML = "Avanti";
