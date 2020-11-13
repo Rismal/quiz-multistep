@@ -86,28 +86,7 @@ function isDotCompleted(dotHTML) {
 
 function switchStep(switchDirection) {
 
-    const isLastStep = currentStepIdx == allStepsHTML.length-1;
-    let fields;
-    let valid;
-
-    // reset error msg
-    toggleErrorMsg(false);
-    updateErrorMsg(isLastStep);
-
-    // get fields to validate
-    if (isLastStep) {
-        // if you have reached the end of the form... :
-        // all steps fields
-        fields = document.querySelectorAll(".step input");
-    }
-    else {
-        // only current step fields
-        fields = document.querySelectorAll(".step")[currentStepIdx].querySelectorAll("input");
-    }
-
-    // validate fields
-    valid = validateFields(fields);
-
+    let valid = validateAllRadiosInStep(allStepsHTML[currentStep.index]);
 
     // if tring to switch next and any field in the current step is invalid:
     if (switchDirection == 1 && !valid){
@@ -116,27 +95,29 @@ function switchStep(switchDirection) {
     }
 
     // if you have reached the end of the form... :
-    if (isLastStep) {
-        //...the form gets submitted:
+    if (currentStep.isLastStep()) {
+        markDotCompleted(currentStep.index);
         toggleWaitMsg(true);
+        validateAllRadiosInForm();
         redirectToResultPage(calcQuizScore());
-        //document.getElementById("formId").submit();
         return true;
     }
-    // reset wait msg
     toggleWaitMsg(false);
 
-    if ( valid ) validateDot(currentStepIdx);
+    if ( valid ) {
+        markDotCompleted(currentStep.index);
+        if( isDotNext(document.getElementsByClassName("dot")[currentStep.index]) ) markDotNext(currentStep.index+1);
+    }
 
-
+    // updateCurrentStep
     // Hide the current step:
-    hideStep(currentStepIdx);
+    hideStep(currentStep.index);
 
     // Increase or decrease the current step by 1:
-    currentStepIdx = currentStepIdx + switchDirection;
+    currentStep.increment(switchDirection);
 
     // Otherwise, display the correct step:
-    updateStep(currentStepIdx);
+    updateNewStep(currentStep);
 }
 function jumpStep(dot){
     // reset error msg
