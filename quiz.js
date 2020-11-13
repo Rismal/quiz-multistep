@@ -134,22 +134,29 @@ function jumpToStep(dot){
     updateStep(currentStepIdx);
 }
 
-function validateFields(inputFieldsHTML) {
+function validateRadio(questionIdx){
+    return formHTML.elements["q"+(parseInt(questionIdx)+1)].value != "";
+}
+function validateAllRadiosInStep(stepHTML){
 
-    let valid = true;
-    let isChecked = 0;
+    for ( const fieldset of stepHTML.getElementsByTagName("fieldset") ) {
 
-    // loop every input field in the current step:
-    for ( const input of inputFieldsHTML ) {
-        if (input.checked == true) isChecked++;
+        let index = Array.prototype.indexOf.call(formHTML.getElementsByTagName("fieldset"), fieldset);
+
+        if (!validateRadio(index)) return false;
     }
 
-    // set validation condition
-    valid = isChecked == 1;
-
-    // return the valid status
-    return valid;
+    return true;
 }
+function validateAllRadiosInForm(){
+    
+    for ( const index in formHTML.getElementsByTagName("fieldset") ) {
+        if ( formHTML.getElementsByTagName("fieldset").hasOwnProperty(index) && !validateRadio(index)) return false;
+    }
+
+    return true;
+}
+
 function toggleMsg(msgId, show){
     if (show) document.getElementById(msgId).style.display = "block";
     else document.getElementById(msgId).style.display = "none";
