@@ -32,24 +32,37 @@ function updateButtons(currentStepIdx){
         document.getElementById("nextBtn").innerHTML = "Avanti";
     }
 }
-function updateStepIndicator(currentStepIdx) {
+
+function markDot(stepIdx, className) {
     const dots = document.getElementsByClassName("dot");
     
     // remove the "active" class of all steps...
     for ( const dot of dots ) {
-        let test = dot.className.replace(" active", "");
-        dot.className = test;
+        dot.className = dot.className.replace(" "+className, "");
     }
     //... and add the "active" class to the current step:
-    dots[currentStepIdx].className += " active";
+    dots[stepIdx].className += " "+className;
 }
-function validateDot(currentStepIdx) {
-    const currentDot = document.getElementsByClassName("dot")[currentStepIdx];
+function markDotActive(stepIdx) {
+    markDot(stepIdx, "active");    
+}
+function markDotNext(stepIdx) {
+    markDot(stepIdx, "next");    
+}
+function markDotCompleted(stepIdx) {
+    const dotHTML = document.getElementsByClassName("dot")[stepIdx];
 
     // mark the step indicator as valid:
-    if ( !(currentDot.className.search(" finish") >= 0) ) {
-        currentDot.className += " finish";
+    if ( !isDotCompleted(dotHTML) ) {
+        dotHTML.className += " completed";
     }
+}
+//OPT use stepIdx instead of dotHTML
+function isDotNext(dotHTML) {
+    return (dotHTML.className.search("next") >= 0);   
+}
+function isDotCompleted(dotHTML) {
+    return (dotHTML.className.search("completed") >= 0);   
 }
 
 function switchStep(switchDirection) {
