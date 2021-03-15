@@ -73,3 +73,19 @@ button {
 label {
   line-height: 30px;
 }
+
+
+fieldset {
+    padding: 5em;
+}
+
+@media all and (max-width: 600px) {
+    fieldset {
+    padding: 3em 1em;
+}
+}
+
+
+.dot.completed {
+    background-color: #ff700e;
+}

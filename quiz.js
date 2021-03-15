@@ -22,6 +22,7 @@ function initStep() {
     markDotActive(currentStep.index);
     markDotNext(currentStep.index);
 }
+
 function updateNewStep(currentStep) {
     toggleErrorMsg(false);
     updateButtons(currentStep);
@@ -29,57 +30,6 @@ function updateNewStep(currentStep) {
     markDotActive(currentStep.index);
     updateErrorMsg(currentStep.isLastStep());
 }
-function switchStep(switchDirection) {
-
-    const valid = validateAllRadiosInStep(allStepsHTML[currentStep.index]);
-
-    // if tring to switch next and any field in the current step is invalid:
-    if (switchDirection == 1 && !valid){
-        toggleErrorMsg(true);
-        return false;
-    }
-
-    // if you have reached the end of the form... :
-    if (currentStep.isLastStep()) {
-        markDotCompleted(currentStep.index);
-        toggleWaitMsg(true);
-        validateAllRadiosInForm();
-        redirectToResultPage(calcQuizScore());
-        return true;
-    }
-    toggleWaitMsg(false);
-
-    if ( valid ) {
-        markDotCompleted(currentStep.index);
-        if( isDotNext(document.getElementsByClassName("dot")[currentStep.index]) ) markDotNext(currentStep.index+1);
-    }
-
-    // updateCurrentStep
-    // Hide the current step:
-    hideStep(currentStep.index);
-
-    // Increase or decrease the current step by 1:
-    currentStep.increment(switchDirection);
-
-    // Otherwise, display the correct step:
-    updateNewStep(currentStep);
-}
-function jumpToStep(dot){
-
-    // jump only to validated dot
-    if ( !isDotCompleted(dot) && !isDotNext(dot) ) return false;
-    
-    // updateCurrentStep
-    // Hide the current step:
-    hideStep(currentStep.index);
-
-    // update the current step:
-    currentStep.index = Array.prototype.indexOf.call(dot.parentNode.children, dot);
-
-    // display the selected step:
-    updateNewStep(currentStep);
-}
-
 function showStep(stepIdx){
     // This function will display the specified step of the form ...
     allStepsHTML[stepIdx].style.display = "block";
@@ -134,6 +84,58 @@ function isDotCompleted(dotHTML) {
     return (dotHTML.className.search("completed") >= 0);   
 }
 
+function switchStep(switchDirection) {
+
+    let valid = validateAllRadiosInStep(allStepsHTML[currentStep.index]);
+
+    // if tring to switch next and any field in the current step is invalid:
+    if (switchDirection == 1 && !valid){
+        toggleErrorMsg(true);
+        return false;
+    }
+
+    // if you have reached the end of the form... :
+    if (currentStep.isLastStep() && switchDirection == 1) {
+        markDotCompleted(currentStep.index);
+        toggleWaitMsg(true);
+        validateAllRadiosInForm();
+        redirectToResultPage(calcQuizScore());
+        return true;
+    }
+    toggleWaitMsg(false);
+
+    if ( valid ) {
+        markDotCompleted(currentStep.index);
+        if( isDotNext(document.getElementsByClassName("dot")[currentStep.index]) ) markDotNext(currentStep.index+1);
+    }
+
+    // updateCurrentStep
+    // Hide the current step:
+    hideStep(currentStep.index);
+
+    // Increase or decrease the current step by 1:
+    currentStep.increment(switchDirection);
+
+    // Otherwise, display the correct step:
+    updateNewStep(currentStep);
+}
+function jumpToStep(dot){
+
+    // jump only to validated dot
+    if ( !isDotCompleted(dot) && !isDotNext(dot) ) return false;
+    
+    // updateCurrentStep
+    // Hide the current step:
+    hideStep(currentStep.index);
+
+    // update the current step:
+    currentStep.index = Array.prototype.indexOf.call(dot.parentNode.children, dot);
+
+    // display the selected step:
+    updateNewStep(currentStep);
+}
+
+
 function validateRadio(questionIdx){
     return formHTML.elements["q"+(parseInt(questionIdx)+1)].value != "";
 }
@@ -181,7 +183,7 @@ function calcQuizScore(){
         "libClass"  : 0,
         "libCon"    : 0,
         "vol"       : 0,
-        "con"       : 0,
+        "neo"       : 0,
         "libSoc"    : 0
     };
 
@@ -205,7 +207,7 @@ function redirectToResultPage(quizScore){
         "libClass"  : "liberale-classico",
         "libCon"    : "liberale-conservatore",
         "vol"       : "volontarista",
-        "con"       : "conservatore",
+        "neo"       : "neoliberale",
         "libSoc"    : "liberale-sociale"
     };
 

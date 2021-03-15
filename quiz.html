@@ -1,7 +1,8 @@
 <form id="quizLib" onsubmit="event.preventDefault();" action="">
 
   <!-- Circles which indicates the steps of the form: -->
-  <div class="step-indicator" style="text-align:center;margin-top:10px; margin-bottom: 40px;">
+  <div class="step-indicator" style="text-align:center;margin-top:10px; margin-bottom: 20px;">
+    <span class="dot active next" onclick="jumpToStep(this)"></span>
     <span class="dot" onclick="jumpToStep(this)"></span>
     <span class="dot" onclick="jumpToStep(this)"></span>
     <span class="dot" onclick="jumpToStep(this)"></span>
@@ -13,25 +14,25 @@
     <span class="dot" onclick="jumpToStep(this)"></span>
     <span class="dot" onclick="jumpToStep(this)"></span>
     <span class="dot" onclick="jumpToStep(this)"></span>
-    <span class="dot" onclick="jumpToStep(this)"></span>
+	<span class="dot" onclick="jumpToStep(this)"></span>
   </div>
   
   <!-- One "tab" for each step in the form: -->
   
-  <div class="step">
+  <div class="step" style="display: block;">
     <fieldset>
       <p>DOMANDA 1</p>
     
-      <p><span class ="domanda"> Cosa ne pensi delle unioni per coppie non eterosessuali? </span></p>
+      <p><span class="domanda"> Cosa ne pensi delle unioni per coppie non eterosessuali? </span></p>
     
       <input type="radio" id="q1-1" name="q1" value="1" data-lib-class="1">
-      <label for="q1-1">Sono d'accordo: quello che avviene nel letto degli altri non mi interessa.</label><br/>
+      <label for="q1-1">Sono d'accordo: quello che avviene nel letto degli altri non mi interessa.</label><br>
       <input type="radio" id="q1-2" name="q1" value="2" data-lib-con="1">
-      <label for="q1-2">Sono a favore, ma moralmente credo non abbiano lo stesso valore delle coppie eterosessuali.</label><br/>
+      <label for="q1-2">Sono a favore, ma moralmente credo non abbiano lo stesso valore delle coppie eterosessuali.</label><br>
       <input type="radio" id="q1-3" name="q1" value="3" data-vol="1">
-      <label for="q1-3">Le unioni civili e il matrimonio vanno aboliti: solo contratti privati!</label><br/>
-      <input type="radio" id="q1-4" name="q1" value="4" data-con="1">
-      <label for="q1-4">Sono più contrario che d'accordo.</label><br/>
+      <label for="q1-3">Le unioni civili e il matrimonio vanno aboliti: solo contratti privati!</label><br>
+      <input type="radio" id="q1-4" name="q1" value="4" data-neo="1">
+      <label for="q1-4">Sono a favore: è fondamentale, anche dal punto di vista pratico, che coppie reali vengano trattate come tali dall’ordinamento statale.</label><br>
       <input type="radio" id="q1-5" name="q1" value="5" data-lib-soc="1">
       <label for="q1-5">Lo Stato deve favorirne l'accettazione da parte della popolazione.</label>
     </fieldset>
@@ -41,13 +42,13 @@
     <fieldset>
       <p>DOMANDA 2</p>
     
-      <p><span class ="domanda"> In tempi di crisi, lo Stato... </span></p>
+      <p><span class="domanda"> In tempi di crisi, lo Stato... </span></p>
     
-      <input type="radio" id="q2-1" name="q2" value="1" data-lib-class="1" data-lib-con="1" data-vol="1">
-      <label for="q2-1">Dovrebbe favorire la crescita liberalizzando i mercati, privatizzando e abbassando le imposte.</label><br/>
+      <input type="radio" id="q2-1" name="q2" value="1" data-lib-class="1" data-lib-con="1" data-vol="1" data-neo="1">
+      <label for="q2-1">Dovrebbe favorire la crescita liberalizzando i mercati, privatizzando e abbassando le imposte.</label><br>
       <input type="radio" id="q2-2" name="q2" value="2" data-vol="1">
-      <label for="q2-2">Dovrebbe completamente mettersi da parte e lasciare il campo solo ai privati.</label><br/>
-      <input type="radio" id="q2-4" name="q2" value="4" data-con="1" data-lib-soc="1">
+      <label for="q2-2">Dovrebbe completamente mettersi da parte e lasciare il campo solo ai privati.</label><br>
+      <input type="radio" id="q2-4" name="q2" value="4" data-lib-soc="1">
       <label for="q2-4">Dovrebbe favorire la crescita stimolando il mercato con investimenti ad hoc.</label>
     </fieldset>
   </div>
@@ -56,16 +57,16 @@
     <fieldset>
       <p>DOMANDA 3</p>
     
-      <p><span class ="domanda"> La democrazia... </span></p>
+      <p><span class="domanda"> La democrazia... </span></p>
     
-      <input type="radio" id="q3-1" name="q3" value="1" data-lib-class="1" data-lib-con="1">
-      <label for="q3-1">Quando liberale, è il migliore dei sistemi. Quando illimitata, diventa una vera e propria dittatura della maggioranza.</label><br/>
+      <input type="radio" id="q3-1" name="q3" value="1" data-lib-class="1" data-neo="1">
+      <label for="q3-1">Quando liberale, è il migliore dei sistemi. Quando illimitata, diventa una vera e propria dittatura della maggioranza.</label><br>
+	  <input type="radio" id="q3-2" name="q3" value="2" data-lib-con="1">
+      <label for="q3-2">È un pessimo sistema, ma è il migliore che abbiamo. Ottiene ottimi risultati se applicata con limiti tradizionali.</label><br>
       <input type="radio" id="q3-2" name="q3" value="2" data-vol="1">
-      <label for="q3-2">È un sistema illegittimo che permette l'ingrandimento del potere statale e l'esproprio della ricchezza.</label><br/>
+      <label for="q3-2">È un sistema illegittimo che permette l'ingrandimento del potere statale e l'esproprio della ricchezza.</label><br>
       <input type="radio" id="q3-4" name="q3" value="4" data-lib-soc="1">
-      <label for="q3-4">È il miglior sistema politico: garantisce potere ed eguaglianza ai cittadini.</label><br/>
-      <input type="radio" id="q3-3" name="q3" value="3" data-con="1">
-      <label for="q3-3">È un buon sistema finché riesce a mantenere lo status quo.</label><br/>
+      <label for="q3-4">È il miglior sistema politico: garantisce potere ed eguaglianza ai cittadini.</label><br>
     </fieldset>
   </div>
   
@@ -73,18 +74,18 @@
     <fieldset>
       <p>DOMANDA 4</p>
     
-      <p><span class ="domanda"> L'immigrazione... </span></p>
+      <p><span class="domanda"> L'immigrazione... </span></p>
     
-      <input type="radio" id="q4-1" name="q4" value="1" data-lib-class="1" >
-      <label for="q4-1">È accettabile ogniqualvolta non comporti più assistenzialismo, sussidi e spesa pubblica.</label><br/>
-      <input type="radio" id="q4-2" name="q4" value="2" data-lib-con="1" >
-      <label for="q4-2">È accettabile solo se è garantita una completa integrazione.</label><br/>
-      <input type="radio" id="q4-4" name="q4" value="4" data-con="1" >
-      <label for="q4-4">È da regolare e limitare bene per evitare il collasso della società.</label><br/>
+      <input type="radio" id="q4-1" name="q4" value="1" data-lib-class="1">
+      <label for="q4-1">È accettabile ogniqualvolta non comporti più assistenzialismo, sussidi e spesa pubblica.</label><br>
+      <input type="radio" id="q4-2" name="q4" value="2" data-lib-con="1">
+      <label for="q4-2">È accettabile solo se è garantita una completa integrazione.</label><br>
+      <input type="radio" id="q4-4" name="q4" value="4" data-neo="1">
+      <label for="q4-4">È accettabile quando contribuisce al sistema Paese, soprattutto se è immigrazione qualificata. Devono essere accettati tutti gli immigrati che possono aggiungere valore al Paese.</label><br>
       <input type="radio" id="q4-3" name="q4" value="3" data-lib-soc="1">
-      <label for="q4-3">È sempre e a prescindere qualcosa di positivo.</label><br/>
+      <label for="q4-3">È sempre e a prescindere qualcosa di positivo.</label><br>
       <input type="radio" id="q4-5" name="q4" value="5" data-vol="1">
-      <label for="q4-5">È ogni singola comunità a dover scegliere se accettarla in base alle proprie esigenze: l'immigrazione seguirà il libero mercato.</label><br/>
+      <label for="q4-5">È ogni singola comunità a dover scegliere se accettarla in base alle proprie esigenze: l'immigrazione seguirà il libero mercato.</label><br>
     </fieldset>
   </div> 
 
@@ -92,16 +93,16 @@
     <fieldset>
       <p>DOMANDA 5</p>
     
-      <p><span class ="domanda"> A cosa dovrebbe servire il welfare? </span></p>
+      <p><span class="domanda"> A cosa dovrebbe servire il welfare? </span></p>
     
-      <input type="radio" id="q5-1" name="q5" value="1" data-lib-class="1" data-lib-con="1" >
-      <label for="q5-1">Ad aiutare le persone a diventare autonome e indipendenti, senza trasformarle in parassiti che vivono sulle spalle dei contribuenti.</label><br/>
-      <input type="radio" id="q5-2" name="q5" value="2"  data-vol="1">
-      <label for="q5-2">A niente: non dovrebbe esistere.</label><br/>
-      <input type="radio" id="q5-4" name="q5" value="4" data-con="1" >
-      <label for="q5-4">A fornire un supporto ai cittadini in difficoltà.</label><br/>
+      <input type="radio" id="q5-1" name="q5" value="1" data-lib-class="1" data-lib-con="1">
+      <label for="q5-1">Ad aiutare le persone a diventare autonome e indipendenti, senza trasformarle in parassiti che vivono sulle spalle dei contribuenti.</label><br>
+      <input type="radio" id="q5-2" name="q5" value="2" data-vol="1">
+      <label for="q5-2">A niente: non dovrebbe esistere.</label><br>
+      <input type="radio" id="q5-4" name="q5" value="4" data-neo="1">
+      <label for="q5-4">Serve a migliorare e ottimizzare le risorse umane di una determinata società. Va mantenuto ridotto, ma sufficiente per dare l'opportunità a tutti gli individui di esprimere il proprio potenziale.</label><br>
       <input type="radio" id="q5-3" name="q5" value="3" data-lib-soc="1">
-      <label for="q5-3">Ad aiutare i più deboli e a rendere la società più egualitaria.</label><br/>
+      <label for="q5-3">Ad aiutare i più deboli e a rendere la società più egualitaria.</label><br>
     </fieldset>
   </div>
 
@@ -109,16 +110,16 @@
     <fieldset>
       <p>DOMANDA 6</p>
     
-      <p><span class ="domanda"> La droga... </span></p>
+      <p><span class="domanda"> La droga... </span></p>
     
       <input type="radio" id="q6-1" name="q6" value="1" data-lib-class="1" data-vol="1">
-      <label for="q6-1">Dovrebbe essere liberalizzata: libertà è responsabilità (anche per le eventuali cure).</label><br/>
-      <input type="radio" id="q6-2" name="q6" value="2" data-lib-con="1" >
-      <label for="q6-2">Dovrebbe essere liberalizzata o almeno depenalizzata, ma penso comunque che sia un problema per l'individuo e per la società.</label><br/>
-      <input type="radio" id="q6-4" name="q6" value="4" data-con="1" >
-      <label for="q6-4">Non dovrebbe essere sdoganata né resa legale.</label><br/>
+      <label for="q6-1">Dovrebbe essere liberalizzata: libertà è responsabilità (anche per le eventuali cure).</label><br>
+      <input type="radio" id="q6-2" name="q6" value="2" data-lib-con="1">
+      <label for="q6-2">Dovrebbe essere liberalizzata o almeno depenalizzata, ma penso comunque che sia un problema per l'individuo e per la società.</label><br>
+      <input type="radio" id="q6-4" name="q6" value="4" data-neo="1">
+      <label for="q6-4">Se liberalizzata, consente di migliorare il supporto per chi ne è dipendente. Il mercato aiuterà a risolvere i problemi relativi.</label><br>
       <input type="radio" id="q6-3" name="q6" value="3" data-lib-soc="1">
-      <label for="q6-3">Dovrebbe essere legalizzata, ma ben controllata dallo Stato.</label><br/>
+      <label for="q6-3">Dovrebbe essere legalizzata, ma ben controllata dallo Stato.</label><br>
     </fieldset>
   </div> 
 
@@ -126,14 +127,14 @@
     <fieldset>
       <p>DOMANDA 7</p>
     
-      <p><span class ="domanda"> Le armi... </span></p>
+      <p><span class="domanda"> Le armi... </span></p>
     
-      <input type="radio" id="q7-1" name="q7" value="1" data-lib-class="1" data-lib-con="1" data-con="1">
-      <label for="q7-1">Dovrebbero essere libere nel mercato, con una minima dose di regolamentazione.</label><br/>
-      <input type="radio" id="q7-2" name="q7" value="2" data-vol="1" >
-      <label for="q7-2">Qualsiasi arma dovrebbe essere liberamente acquistabile da chiunque.</label><br/>
-      <input type="radio" id="q7-4" name="q7" value="4" data-lib-soc="1" >
-      <label for="q7-4">Le armi sono pericolose e dovrebbero essere limitate.</label><br/>
+      <input type="radio" id="q7-1" name="q7" value="1" data-lib-class="1" data-lib-con="1" data-neo="1">
+      <label for="q7-1">Dovrebbero essere libere nel mercato, con una adeguata dose di regolamentazione.</label><br>
+      <input type="radio" id="q7-2" name="q7" value="2" data-vol="1">
+      <label for="q7-2">Qualsiasi arma dovrebbe essere liberamente acquistabile da chiunque e lo Stato non dovrebbe intervenire o regolamentare.</label><br>
+      <input type="radio" id="q7-4" name="q7" value="4" data-lib-soc="1">
+      <label for="q7-4">Le armi sono pericolose e dovrebbero essere limitate.</label><br>
     </fieldset>
   </div> 
 
@@ -141,16 +142,16 @@
     <fieldset>
       <p>DOMANDA 8</p>
     
-      <p><span class ="domanda"> La spesa militare va tagliata o tenuta bassa? </span></p>
+      <p><span class="domanda"> La spesa militare va tagliata e tenuta bassa? </span></p>
     
-      <input type="radio" id="q8-1" name="q8" value="1" data-lib-class="1" >
-      <label for="q8-1">Solo quando eccessiva e non strettamente necessaria alla difesa.</label><br/>
-      <input type="radio" id="q8-2" name="q8" value="2" data-lib-con="1" data-con="1" >
-      <label for="q8-2">No, un esercito forte e rispettoso della Legge è necessario alla protezione della Nazione.</label><br/>
-      <input type="radio" id="q8-4" name="q8" value="4" data-vol="1" >
-      <label for="q8-4">Sì, va tagliata il più possibile.</label><br/>
+      <input type="radio" id="q8-1" name="q8" value="1" data-lib-class="1" data-neo="1">
+      <label for="q8-1">Solo quando eccessiva e non strettamente necessaria alla difesa.</label><br>
+      <input type="radio" id="q8-2" name="q8" value="2" data-lib-con="1">
+      <label for="q8-2">No, un esercito forte e rispettoso della Legge è necessario alla protezione della Nazione.</label><br>
+      <input type="radio" id="q8-4" name="q8" value="4" data-vol="1">
+      <label for="q8-4">Sì, va tagliata il più possibile. Se non c'è è anche meglio.</label><br>
       <input type="radio" id="q8-3" name="q8" value="3" data-lib-soc="1">
-      <label for="q8-3">L'esercito è fondamentale e la spesa dipende dalle missioni internazionali a cui il Paese decide di aderire.</label><br/>
+      <label for="q8-3">No, l'esercito è fondamentale e la spesa dipende dalle missioni internazionali a cui il Paese decide di aderire.</label><br>
     </fieldset>
   </div> 
 
@@ -158,14 +159,18 @@
     <fieldset>
       <p>DOMANDA 9</p>
     
-      <p><span class ="domanda"> Il federalismo... </span></p>
+      <p><span class="domanda"> Il federalismo... </span></p>
     
-      <input type="radio" id="q9-1" name="q9" value="1" data-lib-class="1" data-lib-con="1" data-con="1" >
-      <label for="q9-1">È il modo più efficiente per gestire i territori e permette la concorrenza fra regioni.</label><br/>
-      <input type="radio" id="q9-4" name="q9" value="4" data-vol="1" >
-      <label for="q9-4">Non basta: bisogna togliere tutto il potere allo Stato.</label><br/>
+      <input type="radio" id="q9-1" name="q9" value="1" data-lib-class="1" data-lib-con="1">
+      <label for="q9-1">Garantisce la divisione verticale dei poteri e un maggior controllo da parte dei cittadini (che conoscono i problemi locali) sull'operato del governo, essendo locale.</label><br>
+	  <input type="radio" id="q9-5" name="q9" value="5">
+      <label for="q9-5">Permette alle realtà locali e regionali di auto-gestirsi, ma sotto la supervisione e con il sostegno dello Stato. </label><br>
+	  <input type="radio" id="q9-2" name="q9" value="2" data-neo="1">
+	  <label for="q9-2">È il modo più efficiente per gestire i territori e permette la concorrenza fra regioni.</label><br>
+      <input type="radio" id="q9-4" name="q9" value="4" data-vol="1">
+      <label for="q9-4">Non basta: bisogna togliere tutto il potere allo Stato.</label><br>
       <input type="radio" id="q9-3" name="q9" value="3" data-lib-soc="1">
-      <label for="q9-3">È una buona idea, ma in molti casi è meglio lo Stato.</label><br/>
+      <label for="q9-3">È una buona idea, ma in molti casi è meglio che le cose le gestisca lo Stato.</label><br>
     </fieldset>
   </div>  
 
@@ -173,14 +178,14 @@
     <fieldset>
       <p>DOMANDA 10</p>
     
-      <p><span class ="domanda"> Quale pensi sia il miglior modello per la sanità? </span></p>
+      <p><span class="domanda"> Quale pensi sia il miglior modello per la sanità? </span></p>
     
-      <input type="radio" id="q10-1" name="q10" value="1" data-lib-class="1" data-lib-con="1"  >
-      <label for="q10-1">Concorrenza fra assicurazioni private; con malattie gravi, pronto soccorso e voucher per i più poveri finanziati dallo Stato.</label><br/>
-      <input type="radio" id="q10-4" name="q10" value="4" data-vol="1" >
-      <label for="q10-4">Solamente privato.</label><br/>
-      <input type="radio" id="q10-3" name="q10" value="3" data-lib-soc="1" data-con="1">
-      <label for="q10-3">Sistema sanitario pubblico, con eventuali convenzioni coi privati.</label><br/>
+      <input type="radio" id="q10-1" name="q10" value="1" data-lib-class="1" data-lib-con="1" data-neo="1">
+      <label for="q10-1">Concorrenza fra assicurazioni private; con malattie gravi, pronto soccorso e voucher per i più poveri finanziati dallo Stato.</label><br>
+      <input type="radio" id="q10-4" name="q10" value="4" data-vol="1">
+      <label for="q10-4">Solamente privato. L'iniziativa volontaria e solidaristica provvederà ai meno fortunati.</label><br>
+      <input type="radio" id="q10-3" name="q10" value="3" data-lib-soc="1">
+      <label for="q10-3">Sistema sanitario pubblico, con eventuali convenzioni coi privati.</label><br>
     </fieldset>
   </div> 
 
@@ -188,14 +193,16 @@
     <fieldset>
       <p>DOMANDA 11</p>
     
-      <p><span class ="domanda"> Quale pensi sia il miglior modello per l'istruzione? </span></p>
+      <p><span class="domanda"> Quale pensi sia il miglior modello per l'istruzione? </span></p>
     
-      <input type="radio" id="q11-1" name="q11" value="1" data-lib-class="1" data-lib-con="1"  >
-      <label for="q11-1">Lo Stato deve garantire (ma non per forza fornire) ad ogni cittadino un'istruzione, in una scuola di sua scelta e con un voucher di supporto per i più poveri.</label><br/>
-      <input type="radio" id="q11-4" name="q11" value="4" data-vol="1" >
-      <label for="q11-4">Niente Stato: il libero mercato produrrà scuole per tutte le tasche.</label><br/>
-      <input type="radio" id="q11-3" name="q11" value="3" data-lib-soc="1" data-con="1">
-      <label for="q11-3">Lo Stato deve fornire l'istruzione, collaborando talvolta col privato.</label><br/>
+      <input type="radio" id="q11-1" name="q11" value="1" data-lib-class="1" data-neo="1">
+      <label for="q11-1">Lo Stato deve garantire (ma non per forza fornire) ad ogni cittadino un'istruzione, in una scuola di sua scelta e con un voucher di supporto per i più poveri.</label><br>
+		<input type="radio" id="q11-2" name="q11" value="2" data-lib-con="1">
+      <label for="q11-2">L’istruzione dev’essere una prerogativa delle famiglie, e lo Stato (o un sistema privato convenzionato) deve semmai offrire un’istruzione complementare.</label><br>
+      <input type="radio" id="q11-4" name="q11" value="4" data-vol="1">
+      <label for="q11-4">Niente Stato: il libero mercato produrrà scuole per tutte le tasche.</label><br>
+      <input type="radio" id="q11-3" name="q11" value="3" data-lib-soc="1">
+      <label for="q11-3">Lo Stato deve fornire l'istruzione, collaborando talvolta col privato.</label><br>
     </fieldset>
   </div> 
 
@@ -203,23 +210,43 @@
     <fieldset>
       <p>DOMANDA 12</p>
     
-      <p><span class ="domanda"> A cosa dovrebbero servire le imposte? </span></p>
+      <p><span class="domanda"> A cosa dovrebbero servire le imposte? </span></p>
     
-      <input type="radio" id="q12-1" name="q12" value="1" data-lib-class="1" data-lib-con="1"  >
-      <label for="q12-1">A finanziare i servizi fondamentali dello Stato.</label><br/>
-      <input type="radio" id="q12-4" name="q12" value="4" data-vol="1" >
-      <label for="q12-4">A niente: sono un furto.</label><br/>
-      <input type="radio" id="q12-3" name="q12" value="3" data-lib-soc="1" data-con="1">
-      <label for="q12-3">Ad aiutare i più poveri con una certa redistribuzione della ricchezza.</label><br/>
+      <input type="radio" id="q12-1" name="q12" value="1" data-lib-class="1" data-neo="1">
+      <label for="q12-1">A finanziare i servizi fondamentali dello Stato.</label><br>
+      <input type="radio" id="q12-2" name="q12" value="1" data-lib-con="1">
+      <label for="q12-2">A garantire la pace sociale e la preservazione della società.</label><br>
+      <input type="radio" id="q12-4" name="q12" value="4" data-vol="1">
+      <label for="q12-4">A niente: sono un furto.</label><br>
+      <input type="radio" id="q12-3" name="q12" value="3" data-lib-soc="1">
+      <label for="q12-3">Ad aiutare i più poveri con una certa redistribuzione della ricchezza.</label><br>
     </fieldset>
   </div>  
 
+	<div class="step">
+    <fieldset>
+      <p>DOMANDA 13</p>
+    
+      <p><span class="domanda"> Perché la libertà è la strada giusta? </span></p>
+    
+      <input type="radio" id="q13-1" name="q13" value="1" data-lib-class="1">
+      <label for="q13-1">La libertà è il fertilizzante per istituzioni solide e un'economia sostenibile a lungo termine, è un antidoto al totalitarismo, agli eccessi e agli abusi delle istituzioni.</label><br>
+      <input type="radio" id="q13-2" name="q13" value="1" data-lib-con="1">
+      <label for="q13-2">La libertà è il modo più efficace per proteggere le istituzioni e i gruppi sociali (ad esempio, la famiglia) dall'intervento di momentanee maggioranze di governo.</label><br>
+      <input type="radio" id="q13-4" name="q13" value="4" data-vol="1">
+      <label for="q13-4">La libertà è il diritto individuale principale, ed è moralmente giusto che un sistema sociale sia basato sul volontarismo e non sulla coercizione.</label><br>
+      <input type="radio" id="q13-5" name="q13" value="5" data-neo="1">
+      <label for="q13-5">La libertà è il più importante requisito per un mercato funzionante e per la prosperità, come dimostrato empiricamente e storicamente. </label><br>
+	  <input type="radio" id="q13-3" name="q13" value="3" data-lib-soc="1">
+      <label for="q13-3">La libertà è un requisito per la prosperità e per l'attuazione di politiche volte a ridurre alcuni dei grandi problemi sociali, come la povertà, la disuguaglianza e la mancanza di opportunità.</label><br>
+    </fieldset>
+  </div> 
 
 
   
   <div style="overflow:auto; margin-top: 20px;">
     <div id="msgs">
-      <div id="error-msg" style="display: none; text-align: right;">
+      <div id="error-msg" style="display: block; text-align: right;">
         <p>SELEZIONA UNA RISPOSTA!</p>
       </div>
       <div id="wait-msg" style="display: none; text-align: right;">
@@ -227,7 +254,7 @@
       </div>
     </div>
     <div style="float:right;">
-      <button type="button" id="prevBtn" onclick="switchStep(-1)">Indietro</button>
+      <button type="button" id="prevBtn" onclick="switchStep(-1)" style="display: none;">Indietro</button>
       <button type="button" id="nextBtn" onclick="switchStep(1)">Avanti</button>
     </div>
   </div>
